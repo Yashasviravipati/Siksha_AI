@@ -1,11 +1,8 @@
-# app.py
 import streamlit as st
 from PyPDF2 import PdfReader
 from docx import Document
 import openai
 import sqlite3
-import pyttsx3
-import speech_recognition as sr
 from textblob import TextBlob
 
 from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -42,30 +39,6 @@ def get_previous_doubts():
     return c.fetchall()
 
 # -----------------------
-# TTS Engine
-# -----------------------
-engine = pyttsx3.init()
-def speak(text):
-    engine.say(text)
-    engine.runAndWait()
-
-# -----------------------
-# Speech Recognition
-# -----------------------
-def listen():
-    r = sr.Recognizer()
-    with sr.Microphone() as source:
-        st.info("Listening...")
-        audio = r.listen(source)
-        try:
-            query = r.recognize_google(audio)
-            st.success(f"You said: {query}")
-            return query
-        except Exception:
-            st.error("Sorry, could not understand.")
-            return ""
-
-# -----------------------
 # Spell Correction
 # -----------------------
 def correct_spelling(text):
@@ -94,7 +67,7 @@ def extract_text(file):
 # Streamlit UI
 # -----------------------
 st.set_page_config(page_title="AI Study Assistant", layout="wide")
-st.title("📚 AI Study Assistant with RAG & Voice")
+st.title("📚 AI Study Assistant (Text-only)")
 
 # Sidebar settings
 st.sidebar.header("Settings")
@@ -140,18 +113,7 @@ if uploaded_file:
                 answer = qa.run(corrected_question)
                 st.subheader("AI Answer")
                 st.text_area("Answer", answer, height=300)
-                speak(answer)
                 save_doubt(corrected_question, answer)
-
-        # Voice Question
-        if st.button("Ask via Voice"):
-            voice_input = listen()
-            if voice_input:
-                corrected_voice = correct_spelling(voice_input)
-                answer = qa.run(corrected_voice)
-                st.text_area("AI Answer", answer, height=300)
-                speak(answer)
-                save_doubt(corrected_voice, answer)
 
         # Show previous doubts
         if st.checkbox("Show Previous Questions & Answers"):
