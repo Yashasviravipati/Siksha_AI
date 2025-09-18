@@ -1,0 +1,12 @@
+
+streamlit
+openai
+langchain
+faiss-cpu
+sentence-transformers
+PyPDF2
+python-docx
+pyttsx3
+speechrecognition
+textblob
+pyaudio
