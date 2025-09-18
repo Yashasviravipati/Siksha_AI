@@ -14,7 +14,7 @@ from langchain.chains import RetrievalQA
 # -----------------------
 # OpenAI API Key
 # -----------------------
-openai.api_key = "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"
+openai.api_key = "API KEY REMOVED FOR SAFETY PURPOSES"
 
 # -----------------------
 # SQLite DB for Doubts
