@@ -1,8 +1,9 @@
-streamlit
-openai
-langchain
-faiss-cpu
-sentence-transformers
-PyPDF2
-python-docx
-textblob
+streamlit==1.26.0
+openai>=1.0.0
+langchain>=0.1.0
+langchain-community>=0.0.196
+faiss-cpu>=1.7.4
+sentence-transformers>=2.2.2
+PyPDF2>=3.0.1
+python-docx>=0.8.11
+textblob>=0.17.1
